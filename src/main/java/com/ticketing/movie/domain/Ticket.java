@@ -4,28 +4,33 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 @RequiredArgsConstructor
 @Getter
 @EqualsAndHashCode
-@ToString
 @Entity
+@Setter
 public class Ticket {
 
     @Id
     @GeneratedValue
+    @Column(name = "ticket_id")
     private Long id;
-    private final Long userId;
 
-    @ManyToOne
-    private final Movie movie;
+    private final String movieName;
+    private final String showTime;
     private final String seatNumber;
 
-    // Empty constructor for JPA
-    protected Ticket() {
-        this.userId = null;
-        this.movie = null;
+
+    @ManyToOne
+    @JoinColumn(name = "watcher_id")
+    private Watcher watcher;
+
+    public Ticket() {
+        this.movieName = null;
+        this.showTime = null;
         this.seatNumber = null;
+        this.watcher = null;
     }
 }

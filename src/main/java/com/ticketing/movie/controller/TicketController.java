@@ -19,13 +19,20 @@ public class TicketController {
     }
 
     @PostMapping("/book")
-    public void bookTicket(@RequestBody Ticket ticket) {
+    public void bookTicket(@RequestBody Ticket ticket, @RequestParam String watcherName, @RequestParam int watcherPhoneNumber) {
+        ticket.setWatcherName(watcherName);
+        ticket.setWatcherPhoneNumber(watcherPhoneNumber);
         // Call the booking service to handle the ticket booking logic
         bookingService.bookTicket(ticket);
     }
 
     @GetMapping("/all")
     public List<Ticket> getAllTickets() {
-        return bookingService.getTicketDetails();
+        return bookingService.getAllTickets();
+    }
+
+    @GetMapping("/watcher/{userName}")
+    public List<Ticket> getTicketsByWatcher(@PathVariable String userName) {
+        return bookingService.getTicketDetailsofWatcher(userName);
     }
 }
