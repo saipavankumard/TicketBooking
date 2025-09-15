@@ -23,6 +23,9 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void bookTicket(Ticket ticket, Watcher watcher) {
         ticket.setWatcher(watcher);
+        watcher.getTickets().add(ticket);
+        watcherRepository.save(watcher);
+        ticketRepository.save(ticket);
     }
 
     @Override

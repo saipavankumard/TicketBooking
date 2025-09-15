@@ -4,13 +4,16 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
 @EqualsAndHashCode
 @Entity
+@Setter
 public class Watcher {
 
     @Id
@@ -18,8 +21,8 @@ public class Watcher {
     @Column(name = "watcher_id")
     private Long id;
 
-    @OneToMany(mappedBy = "watcher")
-    private final List<Ticket> tickets;
+    @OneToMany(mappedBy = "watcher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
 
     private final String name;
 
