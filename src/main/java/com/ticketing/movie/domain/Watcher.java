@@ -1,15 +1,14 @@
 package com.ticketing.movie.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 @Entity
@@ -21,16 +20,17 @@ public class Watcher {
     @Column(name = "watcher_id")
     private Long id;
 
+    private String name;
+    private int phoneNumber;
+
     @OneToMany(mappedBy = "watcher", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
 
-    private final String name;
 
-    private final int phoneNumber;
-
-    public Watcher() {
-        this.tickets = null;
-        this.name = null;
-        this.phoneNumber = 0;
+    public Watcher(String name, int phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
     }
+
 }

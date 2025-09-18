@@ -4,6 +4,7 @@ import com.ticketing.movie.Repository.TicketRepository;
 import com.ticketing.movie.Repository.WatcherRepository;
 import com.ticketing.movie.domain.Ticket;
 import com.ticketing.movie.domain.Watcher;
+import com.ticketing.movie.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
         if(watcher != null) {
             return watcher.getTickets();
         }
-        return new ArrayList<>();
+        throw new ResourceNotFoundException("Watcher with name " + userName + " not found");
 
     }
 

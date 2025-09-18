@@ -1,5 +1,7 @@
 package com.ticketing.movie.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,6 +27,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "watcher_id")
+    @JsonIgnoreProperties("tickets")
     private Watcher watcher;
 
     public Ticket() {
